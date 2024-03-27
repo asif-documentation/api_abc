@@ -1279,6 +1279,16 @@
                 "type": "http",
                 "scheme": "bearer",
                 "bearerFormat": "JWT"
+            },
+            "docusignAccessCode": {
+                "type": "oauth2",
+                "description": "DocuSign Authorization",
+                "flows": {
+                    "authorizationCode": {
+                        "authorizationUrl": "https://account.docusign.com/oauth/auth",
+                        "tokenUrl": "https://account.docusign.com/oauth/token"
+                    }
+                }
             }
         },
         "parameters": {
@@ -3522,14 +3532,6 @@
                 "x-ms-summary": "",
                 "description": ""
             }
-        }
-    },
-    "securityDefinitions": {
-        "docusignAccessCode": {
-            "type": "oauth2",
-            "flow": "accessCode",
-            "authorizationUrl": "https://account.docusign.com/oauth/auth",
-            "tokenUrl": "https://account.docusign.com/oauth/token"
         }
     },
     "security": [

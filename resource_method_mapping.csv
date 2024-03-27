@@ -1,2 +1,20 @@
 Category,Service_SDK,Resource_API,Method_API,Method_SDK,ID,Verb,Summary,Request,Response,URL,Release
 ABC,ABC,DEF,listForms,listForms,WebForm_ListForms,get,List Forms,,#/definitions/WebFormSummaryList,/accounts/{account_id}/forms,2024.3
+DEF,DEF,ABC,,,getHealth,get,Returns server health status.,,,/health,2024.3
+DEF,DEF,ABC,,,getVersion,get,Returns server version.,,,/version,2024.3
+DEF,DEF,ABC,getWorkflowDefinitions,getWorkflowDefinitions,getWorkflowDefinitions,get,Get Workflow Definitions metadata,,,/management/accounts/{accountId}/workflowDefinitions,2024.3
+DEF,DEF,ABC,createWorkflowDefinition,createWorkflowDefinition,createNewWorkflowDefinition,post,Creates a new workflow definition.,,,/management/accounts/{accountId}/workflowDefinitions,2024.3
+DEF,DEF,ABC,getWorkflowDefinition,getWorkflowDefinition,getWorkflowDefinition,get,Get Workflow Definition,,,/management/accounts/{accountId}/workflowDefinitions/{workflowDefinitionId},2024.3
+DEF,DEF,ABC,deleteWorkflowDefinition,deleteWorkflowDefinition,deleteWorkflowDefinition,delete,Deletes a workflow definition.,,,/management/accounts/{accountId}/workflowDefinitions/{workflowDefinitionId},2024.3
+DEF,DEF,ABC,updateWorkflowDefinition,updateWorkflowDefinition,updateWorkflowDefinition,put,Updates a workflow definition.,,,/management/accounts/{accountId}/workflowDefinitions/{workflowDefinitionId},2024.3
+DEF,DEF,ABC,publishOrUnPublishWorkflowDefinition,publishOrUnPublishWorkflowDefinition,publishOrUnPublishWorkflowDefinition,post,Publishes or unpublishes a workflow definition.,,,/management/accounts/{accountId}/workflowDefinitions/{workflowDefinitionId}/publish,2024.3
+DEF,DEF,ABC,getWorkflowInstances,getWorkflowInstances,getWorkflowInstances,get,Get List of Workflow Instances,,,/management/accounts/{accountId}/workflowDefinitions/{workflowDefinitionId}/instances,2024.3
+DEF,DEF,ABC,getWorkflowInstance,getWorkflowInstance,getWorkflowInstance,get,Get Workflow Instance Details,,,/management/accounts/{accountId}/workflowDefinitions/{workflowDefinitionId}/instances/{instanceId},2024.3
+DEF,DEF,ABC,getWorkflowHistory,getWorkflowHistory,getWorkflowHistory,get,Get List of Step Histories,,,/management/accounts/{accountId}/instances/{instanceId}/history,2024.3
+DEF,DEF,ABC,cancelWorkflowInstance,cancelWorkflowInstance,cancelWorkflowInstance,post,Cancels a running workflow instance.,,,/management/accounts/{accountId}/instances/{instanceId}/cancel,2024.3
+DEF,DEF,ABC,getWorkflowDefinitionConfigInstances,getWorkflowDefinitionConfigInstances,getConfigInstances,get,Gets configuration instances,,,/management/accounts/{accountId}/workflowDefinitions/{workflowDefinitionId}/configInstances,2024.3
+DEF,DEF,ABC,,,writeConfigInstances,post,Creates/updates configuration instances,,,/management/accounts/{accountId}/workflowDefinitions/{workflowDefinitionId}/configInstances,2024.3
+DEF,DEF,ABC,,,deleteConfigInstances,delete,Deletes configuration instances,,,/management/accounts/{accountId}/workflowDefinitions/{workflowDefinitionId}/configInstances,2024.3
+DEF,DEF,ABC,,,getConfigInstance,get,Get configuration instance,,,/management/accounts/{accountId}/workflowDefinitions/{workflowDefinitionId}/configInstances/{stepId},2024.3
+DEF,DEF,ABC,,,writeConfigInstance,post,Creates/updates a configuration instance,,,/management/accounts/{accountId}/workflowDefinitions/{workflowDefinitionId}/configInstances/{stepId},2024.3
+DEF,DEF,ABC,,,deleteConfigInstance,delete,Deletes configuration instance,,,/management/accounts/{accountId}/workflowDefinitions/{workflowDefinitionId}/configInstances/{stepId},2024.3

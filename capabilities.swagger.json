@@ -1,0 +1,3743 @@
+{
+    "openapi": "3.0.3",
+    "info": {
+        "title": "Workflows APIs",
+        "description": "Workflows authors and executes experiences that allow non-coders the ability to define Simple Business Process without having to write code and to deploy them seamlessly without having to have development expertise",
+        "termsOfService": "https://www.docusign.com/company/terms-and-conditions/web",
+        "contact": {
+            "email": "aow@docusign.com"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "https://services.dev.docusign.net/aow-manage/{version}/",
+            "variables": {
+                "version": {
+                    "enum": [
+                        "v1.0"
+                    ],
+                    "default": "v1.0",
+                    "description": "Specify version of the API"
+                }
+            },
+            "description": "Integration"
+        }
+    ],
+    "paths": {
+        "/health": {
+            "get": {
+                "summary": "Returns server health status.",
+                "description": "Returns server health status.",
+                "operationId": "getHealth",
+                "responses": {
+                    "200": {
+                        "description": "Returns Healthy.",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                },
+                "x-ds-method": "",
+                "x-ds-methodname": ""
+            }
+        },
+        "/version": {
+            "get": {
+                "summary": "Returns server version.",
+                "operationId": "getVersion",
+                "responses": {
+                    "200": {
+                        "description": "A JSON object of server information",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "environment": {
+                                            "type": "string",
+                                            "description": "Node environment."
+                                        },
+                                        "version": {
+                                            "type": "string",
+                                            "description": "Server version."
+                                        },
+                                        "nodeVersion": {
+                                            "type": "string",
+                                            "description": "Node version."
+                                        },
+                                        "buildNumber": {
+                                            "type": "string",
+                                            "description": "Build id."
+                                        },
+                                        "branch": {
+                                            "type": "string",
+                                            "description": "Git branch."
+                                        },
+                                        "gitSha": {
+                                            "type": "string",
+                                            "description": "Git commit SHA-1."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "x-ds-method": "",
+                "x-ds-methodname": ""
+            }
+        },
+        "/management/accounts/{accountId}/workflowDefinitions": {
+            "get": {
+                "description": "Returns a list of workflow definitions' metadata.",
+                "summary": "Get Workflow Definitions metadata",
+                "operationId": "getWorkflowDefinitions",
+                "x-ds-methodname": "getWorkflowDefinitions",
+                "security": [
+                    {
+                        "DSAuth": [
+                            "aow_manage"
+                        ]
+                    },
+                    {
+                        "DSBearerAuth": []
+                    }
+                ],
+                "tags": [
+                    "ABC"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/AccountId"
+                    },
+                    {
+                        "$ref": "#/components/parameters/Status"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Returns a list of workflow definitions' metadata.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/WorkflowDefinitionList"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request received",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Authentication details are invalid",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Authorization details are invalid",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "x-ds-method": "getWorkflowDefinitions",
+                "x-ds-service": "Workflow Management"
+            },
+            "post": {
+                "description": "Creates a new workflow definition.",
+                "summary": "Creates a new workflow definition.",
+                "operationId": "createNewWorkflowDefinition",
+                "x-ds-methodname": "createWorkflowDefinition",
+                "security": [
+                    {
+                        "DSAuth": [
+                            "aow_manage"
+                        ]
+                    },
+                    {
+                        "DSBearerAuth": []
+                    }
+                ],
+                "tags": [
+                    "ABC"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/AccountId"
+                    }
+                ],
+                "requestBody": {
+                    "description": "Request Body to create a new workflow definition.",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/WorkflowDefinition"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Return Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NewOrUpdatedWorkflowDefinitionResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Authentication details are invalid",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "The requested resource was not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "x-ds-method": "createWorkflowDefinition",
+                "x-ds-service": "Workflow Management"
+            }
+        },
+        "/management/accounts/{accountId}/workflowDefinitions/{workflowDefinitionId}": {
+            "get": {
+                "description": "Returns a workflow definition.",
+                "summary": "Get Workflow Definition",
+                "operationId": "getWorkflowDefinition",
+                "x-ds-methodname": "getWorkflowDefinition",
+                "security": [
+                    {
+                        "DSAuth": [
+                            "aow_manage"
+                        ]
+                    },
+                    {
+                        "DSBearerAuth": []
+                    }
+                ],
+                "tags": [
+                    "ABC"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/AccountId"
+                    },
+                    {
+                        "$ref": "#/components/parameters/WorkflowDefinitionId"
+                    },
+                    {
+                        "$ref": "#/components/parameters/LastDeployedId"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Returns a workflow definition.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/WorkflowDefinitionWithId"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request received",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Authentication details are invalid",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Authorization details are invalid",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "x-ds-method": "getWorkflowDefinition",
+                "x-ds-service": "Workflow Management"
+            },
+            "delete": {
+                "description": "Deletes a workflow definition.",
+                "summary": "Deletes a workflow definition.",
+                "operationId": "deleteWorkflowDefinition",
+                "x-ds-methodname": "deleteWorkflowDefinition",
+                "security": [
+                    {
+                        "DSAuth": [
+                            "aow_manage"
+                        ]
+                    },
+                    {
+                        "DSBearerAuth": []
+                    }
+                ],
+                "tags": [
+                    "ABC"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/AccountId"
+                    },
+                    {
+                        "$ref": "#/components/parameters/WorkflowDefinitionId"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Returns Delete Successful.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/WorkflowDeleteResponse"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Resource not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "x-ds-method": "deleteWorkflowDefinition",
+                "x-ds-service": "Workflow Management"
+            },
+            "put": {
+                "description": "Updates a workflow definition.",
+                "summary": "Updates a workflow definition.",
+                "operationId": "updateWorkflowDefinition",
+                "x-ds-methodname": "updateWorkflowDefinition",
+                "security": [
+                    {
+                        "DSAuth": [
+                            "aow_manage"
+                        ]
+                    },
+                    {
+                        "DSBearerAuth": []
+                    }
+                ],
+                "tags": [
+                    "ABC"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/AccountId"
+                    },
+                    {
+                        "$ref": "#/components/parameters/WorkflowDefinitionId"
+                    }
+                ],
+                "requestBody": {
+                    "description": "Request Body to update a workflow definition.",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/WorkflowDefinition"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Return Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NewOrUpdatedWorkflowDefinitionResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request, malformed input",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Authentication details are invalid",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "The requested resource was not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "x-ds-method": "updateWorkflowDefinition",
+                "x-ds-service": "Workflow Management"
+            }
+        },
+        "/management/accounts/{accountId}/workflowDefinitions/{workflowDefinitionId}/publish": {
+            "post": {
+                "description": "Publishes or unpublishes a workflow definition.",
+                "summary": "Publishes or unpublishes a workflow definition.",
+                "operationId": "publishOrUnPublishWorkflowDefinition",
+                "x-ds-methodname": "publishOrUnPublishWorkflowDefinition",
+                "security": [
+                    {
+                        "DSAuth": [
+                            "aow_manage"
+                        ]
+                    },
+                    {
+                        "DSBearerAuth": []
+                    }
+                ],
+                "tags": [
+                    "ABC"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/AccountId"
+                    },
+                    {
+                        "$ref": "#/components/parameters/WorkflowDefinitionId"
+                    }
+                ],
+                "requestBody": {
+                    "description": "Request Body to publish or unpublish a workflow definition.",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/DeployRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Return Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/DeployResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Workflow Definition is invalid",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/InvalidWorkflowResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Authentication details are invalid",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "The requested resource was not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "x-ds-method": "publishOrUnPublishWorkflowDefinition",
+                "x-ds-service": "Workflow Management"
+            }
+        },
+        "/management/accounts/{accountId}/workflowDefinitions/{workflowDefinitionId}/instances": {
+            "get": {
+                "description": "Returns the list of instances for a deployed workflow definition.",
+                "summary": "Get List of Workflow Instances",
+                "tags": [
+                    "ABC"
+                ],
+                "operationId": "getWorkflowInstances",
+                "x-ds-methodname": "getWorkflowInstances",
+                "security": [
+                    {
+                        "DSAuth": [
+                            "aow_manage"
+                        ]
+                    },
+                    {
+                        "DSBearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/AccountId"
+                    },
+                    {
+                        "$ref": "#/components/parameters/WorkflowDefinitionId"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A list of workflow instances for a workflow definition in the specified account.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/WorkflowInstancesList"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Authentication details are invalid",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Authorization details are invalid",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "The requested resource was not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "x-ds-method": "getWorkflowInstances",
+                "x-ds-service": "Workflow Instance Management"
+            }
+        },
+        "/management/accounts/{accountId}/workflowDefinitions/{workflowDefinitionId}/instances/{instanceId}": {
+            "get": {
+                "description": "Returns the details for a specific instance for a deployed workflow definition.",
+                "summary": "Get Workflow Instance Details",
+                "tags": [
+                    "ABC"
+                ],
+                "operationId": "getWorkflowInstance",
+                "x-ds-methodname": "getWorkflowInstance",
+                "security": [
+                    {
+                        "DSAuth": [
+                            "aow_manage"
+                        ]
+                    },
+                    {
+                        "DSBearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/AccountId"
+                    },
+                    {
+                        "$ref": "#/components/parameters/WorkflowDefinitionId"
+                    },
+                    {
+                        "$ref": "#/components/parameters/InstanceId"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Details for a specific instance for a workflow definition in the specified account.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/WorkflowInstance"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Authentication details are invalid",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Authorization details are invalid",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "The requested resource was not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "x-ds-method": "getWorkflowInstance",
+                "x-ds-service": "Workflow Instance Management"
+            }
+        },
+        "/management/accounts/{accountId}/instances/{instanceId}/history": {
+            "get": {
+                "description": "Returns a list of step history for a workflow instance",
+                "summary": "Get List of Step Histories",
+                "tags": [
+                    "ABC"
+                ],
+                "operationId": "getWorkflowHistory",
+                "x-ds-methodname": "getWorkflowHistory",
+                "security": [
+                    {
+                        "DSAuth": [
+                            "aow_manage"
+                        ]
+                    },
+                    {
+                        "DSBearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/AccountId"
+                    },
+                    {
+                        "$ref": "#/components/parameters/InstanceId"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "History of workflow steps is returned",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/WorkflowStepHistoryList"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Authentication details are invalid",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Authorization details are invalid",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "The requested resource was not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "x-ds-method": "getWorkflowHistory",
+                "x-ds-service": "Workflow Instance Management"
+            }
+        },
+        "/management/accounts/{accountId}/instances/{instanceId}/cancel": {
+            "post": {
+                "description": "Cancels a running workflow instance.",
+                "summary": "Cancels a running workflow instance.",
+                "operationId": "cancelWorkflowInstance",
+                "x-ds-methodname": "cancelWorkflowInstance",
+                "security": [
+                    {
+                        "DSAuth": [
+                            "aow_manage"
+                        ]
+                    },
+                    {
+                        "DSBearerAuth": []
+                    }
+                ],
+                "tags": [
+                    "ABC"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/AccountId"
+                    },
+                    {
+                        "$ref": "#/components/parameters/InstanceId"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Return Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CancelResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Authentication details are invalid",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "The requested resource was not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "x-ds-method": "cancelWorkflowInstance",
+                "x-ds-service": "Workflow Instance Management"
+            }
+        },
+        "/management/accounts/{accountId}/workflowDefinitions/{workflowDefinitionId}/configInstances": {
+            "get": {
+                "description": "Returns a list of configuration instances for a workflow definition",
+                "summary": "Gets configuration instances",
+                "operationId": "getConfigInstances",
+                "x-ds-methodname": "getWorkflowDefinitionConfigInstances",
+                "security": [
+                    {
+                        "DSAuth": [
+                            "aow_manage"
+                        ]
+                    },
+                    {
+                        "DSBearerAuth": []
+                    }
+                ],
+                "tags": [
+                    "ABC"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/AccountId"
+                    },
+                    {
+                        "$ref": "#/components/parameters/WorkflowDefinitionId"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Returns a list of configuration instances for a workflow definition",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetConfigurationInstancesResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request received",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Authentication details are invalid",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Authorization details are invalid",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Resource not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "x-ds-method": "getWorkflowDefinitionConfigInstances",
+                "x-ds-service": "Workflow Management"
+            },
+            "post": {
+                "description": "Creates/updates configuration instances for a workflow definition. It will overwrite the existing configuration instances with the provided configuration instances.",
+                "summary": "Creates/updates configuration instances",
+                "operationId": "writeConfigInstances",
+                "security": [
+                    {
+                        "DSAuth": [
+                            "aow_manage"
+                        ]
+                    },
+                    {
+                        "DSBearerAuth": []
+                    }
+                ],
+                "tags": [
+                    "ABC"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/AccountId"
+                    },
+                    {
+                        "$ref": "#/components/parameters/WorkflowDefinitionId"
+                    }
+                ],
+                "requestBody": {
+                    "description": "Request body to create/update configuration instances",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/WriteConfigurationInstancesRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Returns success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SuccessMessageResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request received",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Authentication details are invalid",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Authorization details are invalid",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "x-ds-method": "",
+                "x-ds-methodname": "",
+                "x-ds-service": "Workflow Management"
+            },
+            "delete": {
+                "description": "Deletes configuration instances for a workflow definition",
+                "summary": "Deletes configuration instances",
+                "operationId": "deleteConfigInstances",
+                "security": [
+                    {
+                        "DSAuth": [
+                            "aow_manage"
+                        ]
+                    },
+                    {
+                        "DSBearerAuth": []
+                    }
+                ],
+                "tags": [
+                    "ABC"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/AccountId"
+                    },
+                    {
+                        "$ref": "#/components/parameters/WorkflowDefinitionId"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Returns success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SuccessMessageResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request received",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Authentication details are invalid",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Authorization details are invalid",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "x-ds-method": "",
+                "x-ds-methodname": "",
+                "x-ds-service": "Workflow Management"
+            }
+        },
+        "/management/accounts/{accountId}/workflowDefinitions/{workflowDefinitionId}/configInstances/{stepId}": {
+            "get": {
+                "description": "Returns configuration instance for a step in the workflow definition",
+                "summary": "Get configuration instance",
+                "operationId": "getConfigInstance",
+                "security": [
+                    {
+                        "DSAuth": [
+                            "aow_manage"
+                        ]
+                    },
+                    {
+                        "DSBearerAuth": []
+                    }
+                ],
+                "tags": [
+                    "ABC"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/AccountId"
+                    },
+                    {
+                        "$ref": "#/components/parameters/WorkflowDefinitionId"
+                    },
+                    {
+                        "$ref": "#/components/parameters/StepId"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Returns configuration instance for a step in the workflow definition",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetConfigurationInstanceResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request received",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Authentication details are invalid",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Authorization details are invalid",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Resource not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "x-ds-method": "",
+                "x-ds-methodname": "",
+                "x-ds-service": "Workflow Management"
+            },
+            "post": {
+                "description": "Creates/updates a configuration instances for a step in the workflow definition",
+                "summary": "Creates/updates a configuration instance",
+                "operationId": "writeConfigInstance",
+                "security": [
+                    {
+                        "DSAuth": [
+                            "aow_manage"
+                        ]
+                    },
+                    {
+                        "DSBearerAuth": []
+                    }
+                ],
+                "tags": [
+                    "ABC"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/AccountId"
+                    },
+                    {
+                        "$ref": "#/components/parameters/WorkflowDefinitionId"
+                    },
+                    {
+                        "$ref": "#/components/parameters/StepId"
+                    }
+                ],
+                "requestBody": {
+                    "description": "Request body to create/update a configuration instance",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/WriteConfigurationInstanceRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Returns success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SuccessMessageResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request received",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Authentication details are invalid",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Authorization details are invalid",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "x-ds-method": "",
+                "x-ds-methodname": "",
+                "x-ds-service": "Workflow Management"
+            },
+            "delete": {
+                "description": "Deletes a configuration instance for a step in the workflow definition",
+                "summary": "Deletes configuration instance",
+                "operationId": "deleteConfigInstance",
+                "security": [
+                    {
+                        "DSAuth": [
+                            "aow_manage"
+                        ]
+                    },
+                    {
+                        "DSBearerAuth": []
+                    }
+                ],
+                "tags": [
+                    "ABC"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/AccountId"
+                    },
+                    {
+                        "$ref": "#/components/parameters/WorkflowDefinitionId"
+                    },
+                    {
+                        "$ref": "#/components/parameters/StepId"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Returns success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SuccessMessageResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request received",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Authentication details are invalid",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Authorization details are invalid",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "x-ds-method": "",
+                "x-ds-methodname": "",
+                "x-ds-service": "Workflow Management"
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "DSAuth": {
+                "type": "oauth2",
+                "description": "DocuSign AuthN/AuthZ",
+                "flows": {
+                    "authorizationCode": {
+                        "authorizationUrl": "https://account-tk1.tk.docusign.dev/oauth/auth",
+                        "tokenUrl": "https://account-tk1.tk.docusign.dev/oauth/token",
+                        "scopes": {
+                            "aow_manage": "Manage workflows scope"
+                        }
+                    }
+                }
+            },
+            "DSBearerAuth": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
+            }
+        },
+        "parameters": {
+            "AccountId": {
+                "name": "accountId",
+                "description": "Account ID",
+                "in": "path",
+                "required": true,
+                "schema": {
+                    "$ref": "#/components/schemas/AowUUID"
+                }
+            },
+            "WorkflowDefinitionId": {
+                "name": "workflowDefinitionId",
+                "description": "Workflow Definition ID",
+                "in": "path",
+                "required": true,
+                "schema": {
+                    "$ref": "#/components/schemas/AowUUID"
+                }
+            },
+            "InstanceId": {
+                "name": "instanceId",
+                "description": "DS Workflow Instance Id (dacId)",
+                "in": "path",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "format": "uuid"
+                },
+                "example": "00000000-0000-0000-0000-000000000000"
+            },
+            "StepId": {
+                "name": "stepId",
+                "description": "Workflow Definition Step ID",
+                "in": "path",
+                "required": true,
+                "schema": {
+                    "$ref": "#/components/schemas/AowUUID"
+                }
+            },
+            "Status": {
+                "name": "status",
+                "description": "workflow definition metadata status",
+                "in": "query",
+                "required": false,
+                "schema": {
+                    "$ref": "#/components/schemas/WorkflowMetadataStatus"
+                }
+            },
+            "LastDeployedId": {
+                "name": "lastDeployedId",
+                "description": "deployed workflow definition metadata object id",
+                "in": "query",
+                "required": false,
+                "schema": {
+                    "$ref": "#/components/schemas/LastDeployedId"
+                }
+            }
+        },
+        "schemas": {
+            "LastDeployedId": {
+                "type": "string",
+                "format": "string",
+                "example": "64655d8192f160c93b2366a1",
+                "x-ds-definition-name": "LastDeployedId"
+            },
+            "AowUUID": {
+                "type": "string",
+                "format": "uuid",
+                "example": "00000000-0000-0000-0000-000000000000",
+                "x-ds-definition-name": "AowUUID"
+            },
+            "AowUUIDString": {
+                "type": "string",
+                "format": "uuid",
+                "x-ds-definition-name": "AowUUIDString"
+            },
+            "VersionString": {
+                "type": "string",
+                "example": "1.0.0",
+                "x-ds-definition-name": "VersionString"
+            },
+            "AccountId": {
+                "description": "Account Id",
+                "$ref": "#/components/schemas/AowUUID",
+                "x-ds-definition-name": "AccountId"
+            },
+            "UserId": {
+                "type": "string",
+                "format": "uuid",
+                "description": "Participant User ID",
+                "x-ds-definition-name": "UserId"
+            },
+            "SuccessMessageResponse": {
+                "description": "Returns success with a status message",
+                "type": "object",
+                "properties": {
+                    "message": {
+                        "type": "string"
+                    }
+                },
+                "x-ds-definition-name": "SuccessMessageResponse"
+            },
+            "ErrorResponse": {
+                "description": "Returns error with a status message",
+                "type": "object",
+                "properties": {
+                    "errorCode": {
+                        "$ref": "#/components/schemas/ErrorCodes"
+                    },
+                    "message": {
+                        "type": "string"
+                    }
+                },
+                "x-ds-definition-name": "ErrorResponse"
+            },
+            "WorkflowDefinitionList": {
+                "description": "Returns a list of workflow definitions' metadata (0 or more).",
+                "type": "object",
+                "properties": {
+                    "value": {
+                        "description": "Array of workflow definition metadata",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/WorkflowDefinitionMetadata"
+                        }
+                    },
+                    "count": {
+                        "description": "Total number of definitions returned",
+                        "type": "number",
+                        "example": 1
+                    }
+                },
+                "x-ds-definition-name": "WorkflowDefinitionList"
+            },
+            "WorkflowDefinitionMetadata": {
+                "description": "A DS workflow definition's metadata.",
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "$ref": "#/components/schemas/AowUUID"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "accountId": {
+                        "$ref": "#/components/schemas/AowUUIDString"
+                    },
+                    "createdDate": {
+                        "description": "The date the workflow was created",
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "lastUpdatedDate": {
+                        "description": "The date the workflow was last updated",
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "triggerUrl": {
+                        "type": "string",
+                        "format": "uri"
+                    },
+                    "isDraft": {
+                        "type": "boolean"
+                    },
+                    "status": {
+                        "$ref": "#/components/schemas/WorkflowMetadataStatus"
+                    },
+                    "lastDeployedId": {
+                        "$ref": "#/components/schemas/LastDeployedId"
+                    },
+                    "lastDeployedVersion": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "id",
+                    "deploymentStatus"
+                ],
+                "x-ds-definition-name": "WorkflowDefinitionMetadata"
+            },
+            "WorkflowDefinitionWithId": {
+                "description": "A DS workflow definition with metadata.",
+                "type": "object",
+                "properties": {
+                    "workflowDefinition": {
+                        "$ref": "#/components/schemas/WorkflowDefinition"
+                    },
+                    "id": {
+                        "$ref": "#/components/schemas/AowUUID"
+                    },
+                    "accountId": {
+                        "$ref": "#/components/schemas/AowUUIDString"
+                    },
+                    "createdDate": {
+                        "description": "The date the workflow was created",
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "lastUpdatedDate": {
+                        "description": "The date the workflow was last updated",
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "validationErrors": {
+                        "items": {
+                            "$ref": "#/components/schemas/ValidationErrors"
+                        },
+                        "type": "array"
+                    },
+                    "triggerUrl": {
+                        "type": "string",
+                        "format": "uri"
+                    },
+                    "isDraft": {
+                        "type": "boolean"
+                    },
+                    "status": {
+                        "$ref": "#/components/schemas/WorkflowMetadataStatus"
+                    },
+                    "lastDeployedId": {
+                        "$ref": "#/components/schemas/LastDeployedId"
+                    },
+                    "lastDeployedVersion": {
+                        "type": "string"
+                    },
+                    "lastDeployedWorkflowDefinition": {
+                        "$ref": "#/components/schemas/WorkflowDefinition"
+                    }
+                },
+                "required": [
+                    "id"
+                ],
+                "x-ds-definition-name": "WorkflowDefinitionWithId"
+            },
+            "WorkflowDefinition": {
+                "description": "A DS workflow definition.",
+                "type": "object",
+                "properties": {
+                    "workflowName": {
+                        "type": "string"
+                    },
+                    "workflowDescription": {
+                        "type": "string"
+                    },
+                    "documentVersion": {
+                        "$ref": "#/components/schemas/VersionString"
+                    },
+                    "schemaVersion": {
+                        "$ref": "#/components/schemas/VersionString"
+                    },
+                    "accountId": {
+                        "$ref": "#/components/schemas/AowUUIDString"
+                    },
+                    "createdByName": {
+                        "type": "string",
+                        "description": "The name of the user who created this workflow definition"
+                    },
+                    "participants": {
+                        "$ref": "#/components/schemas/DSWorkflowParticipantRecord"
+                    },
+                    "trigger": {
+                        "$ref": "#/components/schemas/DSWorkflowTrigger"
+                    },
+                    "variables": {
+                        "$ref": "#/components/schemas/DSWorkflowVariableRecord"
+                    },
+                    "steps": {
+                        "items": {
+                            "$ref": "#/components/schemas/DSWorkflowStep"
+                        },
+                        "type": "array"
+                    }
+                },
+                "required": [
+                    "workflowName",
+                    "workflowDescription",
+                    "documentVersion",
+                    "schemaVersion",
+                    "accountId",
+                    "trigger",
+                    "variables",
+                    "steps"
+                ],
+                "x-ds-definition-name": "WorkflowDefinition"
+            },
+            "TemplateId": {
+                "description": "Workflow Definition Id",
+                "$ref": "#/components/schemas/AowUUIDString",
+                "x-ds-definition-name": "TemplateId"
+            },
+            "WorkflowDateTime": {
+                "type": "string",
+                "format": "date-time",
+                "x-ds-definition-name": "WorkflowDateTime"
+            },
+            "WorkflowInstanceId": {
+                "description": "Workflow Instance Id",
+                "$ref": "#/components/schemas/AowUUIDString",
+                "x-ds-definition-name": "WorkflowInstanceId"
+            },
+            "WorkflowCreatorId": {
+                "description": "The DocuSign Admin user Id who has the ability to create workflow definitions.",
+                "$ref": "#/components/schemas/AowUUIDString",
+                "x-ds-definition-name": "WorkflowCreatorId"
+            },
+            "WorkflowInstanceMap": {
+                "type": "object",
+                "additionalProperties": {
+                    "type": "string"
+                },
+                "x-ds-definition-name": "WorkflowInstanceMap"
+            },
+            "WorkflowInstanceState": {
+                "type": "string",
+                "description": "Current Workflow Instance state (completed, failed, In-progress)",
+                "enum": [
+                    "In Progress",
+                    "Completed",
+                    "Failed"
+                ],
+                "x-ds-definition-name": "WorkflowInstanceState"
+            },
+            "WorkflowInstance": {
+                "description": "Details of a Workflow Instance triggered for a Workflow Definition",
+                "type": "object",
+                "required": [
+                    "templateId",
+                    "dacId",
+                    "creatorId",
+                    "users",
+                    "instanceState"
+                ],
+                "properties": {
+                    "templateId": {
+                        "$ref": "#/components/schemas/TemplateId"
+                    },
+                    "instanceName": {
+                        "type": "string",
+                        "description": "The friendly name of the particular workflow instance"
+                    },
+                    "dacId": {
+                        "$ref": "#/components/schemas/WorkflowInstanceId"
+                    },
+                    "creatorId": {
+                        "$ref": "#/components/schemas/WorkflowCreatorId"
+                    },
+                    "users": {
+                        "description": "Contains the list of Users and Steps mapping",
+                        "$ref": "#/components/schemas/WorkflowInstanceMap"
+                    },
+                    "startDate": {
+                        "description": "Track the Start time of the Workflow Instance",
+                        "$ref": "#/components/schemas/WorkflowDateTime"
+                    },
+                    "endDate": {
+                        "description": "Track the End time of the Workflow Instance",
+                        "$ref": "#/components/schemas/WorkflowDateTime"
+                    },
+                    "instanceState": {
+                        "$ref": "#/components/schemas/WorkflowInstanceState"
+                    },
+                    "accountId": {
+                        "$ref": "#/components/schemas/AccountId"
+                    },
+                    "startedBy": {
+                        "$ref": "#/components/schemas/StartedByInstance"
+                    },
+                    "progress": {
+                        "$ref": "#/components/schemas/ProgressInstance"
+                    }
+                },
+                "x-ds-definition-name": "WorkflowInstance"
+            },
+            "StartedByInstance": {
+                "description": "The started by information for a workflow instance",
+                "type": "object",
+                "properties": {
+                    "startedByName": {
+                        "type": "string",
+                        "description": "The user name of the person who starts a workflow Instance"
+                    },
+                    "startedById": {
+                        "$ref": "#/components/schemas/AowUUIDString"
+                    },
+                    "startedByType": {
+                        "type": "string",
+                        "enum": [
+                            "Anonymous",
+                            "Preparer",
+                            "Participant"
+                        ]
+                    }
+                },
+                "x-ds-definition-name": "StartedByInstance"
+            },
+            "ProgressInstance": {
+                "description": "The progress information for a workflow instance",
+                "type": "object",
+                "properties": {
+                    "totalSteps": {
+                        "type": "number",
+                        "description": "The total number of steps for this workflow instance"
+                    },
+                    "completedSteps": {
+                        "type": "number",
+                        "description": "The number of completed steps for this workflow instance"
+                    },
+                    "currentCompletedStepName": {
+                        "type": "string",
+                        "description": "The last completed step name"
+                    }
+                },
+                "x-ds-definition-name": "ProgressInstance"
+            },
+            "WorkflowInstancesList": {
+                "description": "Returns a list of workflow instances (0 or more).",
+                "type": "object",
+                "properties": {
+                    "instances": {
+                        "description": "Array of Workflow Instances",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/WorkflowInstance"
+                        }
+                    },
+                    "resultSize": {
+                        "description": "Total number of instances returned",
+                        "type": "number",
+                        "example": 1
+                    }
+                },
+                "x-ds-definition-name": "WorkflowInstancesList"
+            },
+            "DsStepId": {
+                "type": "string",
+                "format": "uuid",
+                "description": "DS Step Id <TODO>",
+                "x-ds-definition-name": "DsStepId"
+            },
+            "WorkflowStepHistoryState": {
+                "type": "string",
+                "description": "Workflow Step History state (completed, failed, In-progress)",
+                "enum": [
+                    "In Progress",
+                    "Completed",
+                    "Failed"
+                ],
+                "x-ds-definition-name": "WorkflowStepHistoryState"
+            },
+            "WorkflowStepError": {
+                "description": "Workflow Step History Error",
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "The workflow step name where the error occurred"
+                    },
+                    "startTime": {
+                        "description": "Track Start time of the error occurred",
+                        "$ref": "#/components/schemas/WorkflowDateTime"
+                    },
+                    "endTime": {
+                        "description": "Track the End time of the error retry/processed",
+                        "$ref": "#/components/schemas/WorkflowDateTime"
+                    },
+                    "code": {
+                        "type": "string",
+                        "description": "Error code message"
+                    },
+                    "error": {
+                        "type": "object",
+                        "properties": {
+                            "code": {
+                                "type": "string",
+                                "description": "The Error Code Message"
+                            },
+                            "message": {
+                                "type": "string",
+                                "description": "Error Message which shares more details"
+                            }
+                        }
+                    }
+                },
+                "x-ds-definition-name": "WorkflowStepError"
+            },
+            "WorkflowStepHistory": {
+                "description": "Details (history) of a Workflow Instance Step",
+                "type": "object",
+                "required": [
+                    "dacId",
+                    "stepName",
+                    "stepState",
+                    "userId"
+                ],
+                "properties": {
+                    "dacId": {
+                        "$ref": "#/components/schemas/WorkflowInstanceId"
+                    },
+                    "stepName": {
+                        "type": "string",
+                        "description": "Name of the workflow step (DS Scope)"
+                    },
+                    "dsStepId": {
+                        "$ref": "#/components/schemas/DsStepId"
+                    },
+                    "stepId": {
+                        "description": "The Step Id of the workflow step in the workflow instance",
+                        "$ref": "#/components/schemas/AowUUID"
+                    },
+                    "stepState": {
+                        "$ref": "#/components/schemas/WorkflowStepHistoryState"
+                    },
+                    "startDate": {
+                        "description": "Track the Start time of the Workflow Step",
+                        "$ref": "#/components/schemas/WorkflowDateTime"
+                    },
+                    "endDate": {
+                        "description": "Track the End time of the Workflow Step",
+                        "$ref": "#/components/schemas/WorkflowDateTime"
+                    },
+                    "userId": {
+                        "$ref": "#/components/schemas/UserId"
+                    },
+                    "accountId": {
+                        "$ref": "#/components/schemas/AccountId"
+                    },
+                    "error": {
+                        "$ref": "#/components/schemas/WorkflowStepError"
+                    },
+                    "outputModuleProperties": {
+                        "type": "object",
+                        "additionalProperties": true
+                    }
+                },
+                "x-ds-definition-name": "WorkflowStepHistory"
+            },
+            "WorkflowStepHistoryList": {
+                "description": "Returns the history of the workflow instance steps.",
+                "type": "object",
+                "properties": {
+                    "stepHistory": {
+                        "description": "Array of Workflow Step History",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/WorkflowStepHistory"
+                        }
+                    },
+                    "resultSize": {
+                        "description": "Total number of workflow step history returned",
+                        "type": "number",
+                        "example": 1
+                    }
+                },
+                "x-ds-definition-name": "WorkflowStepHistoryList"
+            },
+            "DeploymentStatus": {
+                "description": "The workflow deployment status",
+                "enum": [
+                    "Deployment In Progress",
+                    "Deployed",
+                    "Failed",
+                    "Delete in Progress",
+                    "Deleted",
+                    "Not Deployed"
+                ],
+                "type": "string",
+                "x-ds-definition-name": "DeploymentStatus"
+            },
+            "ReplicationStatus": {
+                "description": "The workflow replication status",
+                "enum": [
+                    "Deploy Replication In Progress",
+                    "Deploy Replicated",
+                    "Deploy Replication Failed",
+                    "Not Replicated",
+                    "Delete Replication in Progress",
+                    "Delete Replicated",
+                    "Delete Replication Failed",
+                    "Unpublish replication in Progress",
+                    "Unpublish Replicated",
+                    "Unpublish Replication Failed"
+                ],
+                "type": "string",
+                "x-ds-definition-name": "ReplicationStatus"
+            },
+            "DSWorkflowTrigger": {
+                "description": "A DS workflow trigger.",
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "$ref": "#/components/schemas/AowUUIDString"
+                    },
+                    "type": {
+                        "$ref": "#/components/schemas/DSWorkflowTriggerTypes"
+                    },
+                    "eventType": {
+                        "$ref": "#/components/schemas/EventTypes"
+                    },
+                    "httpType": {
+                        "$ref": "#/components/schemas/HttpTypes"
+                    },
+                    "input": {
+                        "$ref": "#/components/schemas/DSWorkflowVariableRecord"
+                    },
+                    "output": {
+                        "$ref": "#/components/schemas/DSWorkflowVariableRecord"
+                    }
+                },
+                "required": [
+                    "name",
+                    "id",
+                    "type",
+                    "httpType",
+                    "input",
+                    "output"
+                ],
+                "x-ds-definition-name": "DSWorkflowTrigger"
+            },
+            "DSWorkflowTriggerTypes": {
+                "description": "The DS Workflow Trigger types",
+                "enum": [
+                    "Http",
+                    "Http-API"
+                ],
+                "type": "string",
+                "x-ds-definition-name": "DSWorkflowTriggerTypes"
+            },
+            "EventTypes": {
+                "description": "The Trigger Event types",
+                "enum": [
+                    "Sent",
+                    "Delivered",
+                    "Signed",
+                    "Completed"
+                ],
+                "type": "string",
+                "x-ds-definition-name": "EventTypes"
+            },
+            "HttpTypes": {
+                "description": "The Trigger Http types",
+                "enum": [
+                    "Get",
+                    "Post",
+                    "Put",
+                    "Delete"
+                ],
+                "type": "string",
+                "x-ds-definition-name": "HttpTypes"
+            },
+            "DSWorkflowParticipantRecord": {
+                "description": "A DS Workflow participant record",
+                "type": "object",
+                "additionalProperties": {
+                    "$ref": "#/components/schemas/Participant"
+                },
+                "x-ds-definition-name": "DSWorkflowParticipantRecord"
+            },
+            "Participant": {
+                "description": "A DS Workflow participant",
+                "type": "object",
+                "properties": {
+                    "participantRole": {
+                        "type": "string"
+                    },
+                    "participantEmail": {
+                        "$ref": "#/components/schemas/AowUUIDString"
+                    },
+                    "participantFirstName": {
+                        "$ref": "#/components/schemas/AowUUIDString"
+                    },
+                    "participantLastName": {
+                        "$ref": "#/components/schemas/AowUUIDString"
+                    }
+                },
+                "required": [
+                    "participantRole",
+                    "participantEmail",
+                    "participantFirstName",
+                    "participantLastName"
+                ],
+                "x-ds-definition-name": "Participant"
+            },
+            "DSWorkflowVariableRecord": {
+                "description": "A DS Workflow variable record",
+                "type": "object",
+                "additionalProperties": {
+                    "$ref": "#/components/schemas/DSWorkflowVariable"
+                },
+                "x-ds-definition-name": "DSWorkflowVariableRecord"
+            },
+            "DSWorkflowVariable": {
+                "description": "DS Workflow Variables",
+                "anyOf": [
+                    {
+                        "$ref": "#/components/schemas/DSWorkflowVariableFromVariable"
+                    },
+                    {
+                        "$ref": "#/components/schemas/DSWorkflowVariableFromStep"
+                    },
+                    {
+                        "$ref": "#/components/schemas/DSWorkflowVariableFromParticipant"
+                    }
+                ],
+                "x-ds-definition-name": "DSWorkflowVariable"
+            },
+            "DSWorkflowVariableFromVariable": {
+                "description": "DS Workflow Variable from a Variable",
+                "type": "object",
+                "properties": {
+                    "source": {
+                        "$ref": "#/components/schemas/DSWorkflowVariableSourceTypes.Variable"
+                    },
+                    "key": {
+                        "type": "string"
+                    },
+                    "propertyName": {
+                        "type": "string"
+                    },
+                    "stepId": {
+                        "$ref": "#/components/schemas/AowUUIDString"
+                    }
+                },
+                "required": [
+                    "source",
+                    "key",
+                    "propertyName",
+                    "stepId"
+                ],
+                "x-ds-definition-name": "DSWorkflowVariableFromVariable"
+            },
+            "DSWorkflowVariableSourceTypes.Variable": {
+                "enum": [
+                    "variable"
+                ],
+                "type": "string",
+                "x-ds-definition-name": "DSWorkflowVariableSourceTypes.Variable"
+            },
+            "DSWorkflowVariableSourceTypes.Participant": {
+                "enum": [
+                    "participant"
+                ],
+                "type": "string",
+                "x-ds-definition-name": "DSWorkflowVariableSourceTypes.Participant"
+            },
+            "ParticipantKeys": {
+                "enum": [
+                    "participantEmail",
+                    "participantFirstName",
+                    "participantLastName"
+                ],
+                "type": "string",
+                "x-ds-definition-name": "ParticipantKeys"
+            },
+            "DSWorkflowVariableFromParticipant": {
+                "description": "DS Workflow Variable from a Participant",
+                "type": "object",
+                "properties": {
+                    "source": {
+                        "$ref": "#/components/schemas/DSWorkflowVariableSourceTypes.Participant"
+                    },
+                    "key": {
+                        "$ref": "#/components/schemas/ParticipantKeys"
+                    },
+                    "participantId": {
+                        "$ref": "#/components/schemas/AowUUIDString"
+                    }
+                },
+                "required": [
+                    "source",
+                    "key",
+                    "participantId"
+                ],
+                "x-ds-definition-name": "DSWorkflowVariableFromParticipant"
+            },
+            "DSWorkflowVariableFromStep": {
+                "description": "DS Workflow Variable from a Step",
+                "type": "object",
+                "properties": {
+                    "source": {
+                        "$ref": "#/components/schemas/DSWorkflowVariableSourceTypes.Step"
+                    },
+                    "key": {
+                        "type": "string"
+                    },
+                    "propertyName": {
+                        "type": "string"
+                    },
+                    "stepId": {
+                        "$ref": "#/components/schemas/AowUUIDString"
+                    }
+                },
+                "required": [
+                    "source",
+                    "key",
+                    "propertyName",
+                    "stepId"
+                ],
+                "x-ds-definition-name": "DSWorkflowVariableFromStep"
+            },
+            "DSWorkflowVariableSourceTypes.Step": {
+                "enum": [
+                    "step"
+                ],
+                "type": "string",
+                "x-ds-definition-name": "DSWorkflowVariableSourceTypes.Step"
+            },
+            "DSWorkflowStep": {
+                "description": "A DS Workflow Step. UPDATED DESCRIPTION FOR OpenAPI2.0 USERS ONLY: This object should be any of the following object models: [#/definitions/DSServiceStep, #/definitions/DSTransformationStep, #/definitions/DSDocGenStep, #/definitions/DSSignStep]",
+                "anyOf": [
+                    {
+                        "$ref": "#/components/schemas/DSServiceStep"
+                    },
+                    {
+                        "$ref": "#/components/schemas/DSTransformationStep"
+                    },
+                    {
+                        "$ref": "#/components/schemas/DSIfElseStep"
+                    },
+                    {
+                        "$ref": "#/components/schemas/DSLoopStep"
+                    },
+                    {
+                        "$ref": "#/components/schemas/DSDoUntilStep"
+                    },
+                    {
+                        "$ref": "#/components/schemas/DSParallelStep"
+                    }
+                ],
+                "x-ds-definition-name": "DSWorkflowStep"
+            },
+            "DSServiceStep": {
+                "description": "A DS Workflow Service Step. UPDATED DESCRIPTION FOR OpenAPI2.0 USERS ONLY: This object should be any of the following object models: [#/definitions/DSWebFormsStep, #/definitions/DSIdvStep, #/definitions/DSDocGenStep, #/definitions/DSSignStep]",
+                "anyOf": [
+                    {
+                        "$ref": "#/components/schemas/DSWebFormsStep"
+                    },
+                    {
+                        "$ref": "#/components/schemas/DSIdvStep"
+                    },
+                    {
+                        "$ref": "#/components/schemas/DSDocGenStep"
+                    },
+                    {
+                        "$ref": "#/components/schemas/DSSignStep"
+                    }
+                ],
+                "x-ds-definition-name": "DSServiceStep"
+            },
+            "DSWebFormsStep": {
+                "description": "A DS Workflow WebForms Step",
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "$ref": "#/components/schemas/AowUUIDString"
+                    },
+                    "type": {
+                        "$ref": "#/components/schemas/DSWorkflowStepTypes.DSWebForms"
+                    },
+                    "config": {
+                        "properties": {
+                            "pageUrl": {
+                                "type": "string",
+                                "format": "uri"
+                            }
+                        },
+                        "required": [
+                            "pageUrl"
+                        ]
+                    },
+                    "input": {
+                        "$ref": "#/components/schemas/RecordStringOrVariableOrTransformation"
+                    },
+                    "output": {
+                        "$ref": "#/components/schemas/RecordStringOrVariableOrTransformation"
+                    }
+                },
+                "required": [
+                    "name",
+                    "id",
+                    "type",
+                    "config",
+                    "input",
+                    "output"
+                ],
+                "x-ds-definition-name": "DSWebFormsStep"
+            },
+            "DSWorkflowStepTypes.DSWebForms": {
+                "enum": [
+                    "DS-WebForms"
+                ],
+                "type": "string",
+                "x-ds-definition-name": "DSWorkflowStepTypes.DSWebForms"
+            },
+            "DSIdvStep": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "$ref": "#/components/schemas/AowUUIDString"
+                    },
+                    "type": {
+                        "$ref": "#/components/schemas/DSWorkflowStepTypes.DSIdv"
+                    },
+                    "config": {
+                        "$ref": "#/components/schemas/RecordToNever"
+                    },
+                    "input": {
+                        "properties": {
+                            "textColorBranding": {
+                                "$ref": "#/components/schemas/StringOrVariableOrTransformation"
+                            },
+                            "backgroundColorBranding": {
+                                "$ref": "#/components/schemas/StringOrVariableOrTransformation"
+                            },
+                            "expectedFullName": {
+                                "$ref": "#/components/schemas/StringOrVariableOrTransformation"
+                            },
+                            "retryLimit": {
+                                "anyOf": [
+                                    {
+                                        "type": "number"
+                                    },
+                                    {
+                                        "$ref": "#/components/schemas/DSWorkflowVariable"
+                                    },
+                                    {
+                                        "$ref": "#/components/schemas/DSWorkflowTransformationExpression"
+                                    }
+                                ]
+                            }
+                        },
+                        "required": [
+                            "textColorBranding",
+                            "backgroundColorBranding",
+                            "expectedFullName",
+                            "retryLimit"
+                        ],
+                        "type": "object"
+                    },
+                    "output": {
+                        "$ref": "#/components/schemas/RecordStringOrVariableOrTransformation"
+                    }
+                },
+                "required": [
+                    "name",
+                    "id",
+                    "type",
+                    "config",
+                    "input",
+                    "output"
+                ],
+                "x-ds-definition-name": "DSIdvStep"
+            },
+            "DSWorkflowStepTypes.DSIdv": {
+                "enum": [
+                    "DS-IDV"
+                ],
+                "type": "string",
+                "x-ds-definition-name": "DSWorkflowStepTypes.DSIdv"
+            },
+            "DSDocGenStep": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "$ref": "#/components/schemas/AowUUIDString"
+                    },
+                    "type": {
+                        "$ref": "#/components/schemas/DSWorkflowStepTypes.DSDocGen"
+                    },
+                    "config": {
+                        "$ref": "#/components/schemas/RecordToNever"
+                    },
+                    "input": {
+                        "type": "object",
+                        "properties": {
+                            "outputFormat": {
+                                "$ref": "#/components/schemas/DSWorkflowDocGenDocOutputFormat"
+                            },
+                            "outputFileNameIsUnique": {
+                                "type": "boolean"
+                            },
+                            "outputFileName": {
+                                "$ref": "#/components/schemas/StringOrVariableOrTransformation"
+                            },
+                            "templateId": {
+                                "$ref": "#/components/schemas/StringOrVariableOrTransformation"
+                            },
+                            "dataJson": {
+                                "$ref": "#/components/schemas/RecordStringOrVariableOrTransformation"
+                            }
+                        },
+                        "required": [
+                            "outputFormat",
+                            "outputFileNameIsUnique",
+                            "outputFileName",
+                            "templateId",
+                            "dataJson"
+                        ]
+                    },
+                    "output": {
+                        "$ref": "#/components/schemas/RecordStringOrVariableOrTransformation"
+                    }
+                },
+                "required": [
+                    "name",
+                    "id",
+                    "type",
+                    "config",
+                    "input",
+                    "output"
+                ],
+                "x-ds-definition-name": "DSDocGenStep"
+            },
+            "DSWorkflowStepTypes.DSDocGen": {
+                "enum": [
+                    "DS-DocGen"
+                ],
+                "type": "string",
+                "x-ds-definition-name": "DSWorkflowStepTypes.DSDocGen"
+            },
+            "DSWorkflowDocGenDocOutputFormat": {
+                "enum": [
+                    "pdf",
+                    "docx"
+                ],
+                "type": "string",
+                "x-ds-definition-name": "DSWorkflowDocGenDocOutputFormat"
+            },
+            "DSSignStep": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "$ref": "#/components/schemas/AowUUIDString"
+                    },
+                    "type": {
+                        "$ref": "#/components/schemas/DSWorkflowStepTypes.DSSign"
+                    },
+                    "config": {
+                        "$ref": "#/components/schemas/RecordToNever"
+                    },
+                    "input": {
+                        "type": "object",
+                        "properties": {
+                            "emailBlurb": {
+                                "$ref": "#/components/schemas/StringOrVariableOrTransformation"
+                            },
+                            "emailSubject": {
+                                "$ref": "#/components/schemas/StringOrVariableOrTransformation"
+                            },
+                            "signers": {
+                                "items": {
+                                    "$ref": "#/components/schemas/ESignSigner"
+                                },
+                                "type": "array"
+                            },
+                            "documents": {
+                                "items": {
+                                    "$ref": "#/components/schemas/ESignDocuments"
+                                },
+                                "type": "array"
+                            },
+                            "isEmbeddedSign": {
+                                "type": "boolean"
+                            }
+                        },
+                        "required": [
+                            "signers",
+                            "documents",
+                            "isEmbeddedSign"
+                        ]
+                    },
+                    "output": {
+                        "$ref": "#/components/schemas/RecordStringOrVariableOrTransformation"
+                    }
+                },
+                "required": [
+                    "name",
+                    "id",
+                    "type",
+                    "config",
+                    "input",
+                    "output"
+                ],
+                "x-ds-definition-name": "DSSignStep"
+            },
+            "DSWorkflowStepTypes.DSSign": {
+                "enum": [
+                    "DS-Sign"
+                ],
+                "type": "string",
+                "x-ds-definition-name": "DSWorkflowStepTypes.DSSign"
+            },
+            "ESignSigner": {
+                "type": "object",
+                "properties": {
+                    "userName": {
+                        "$ref": "#/components/schemas/StringOrVariableOrTransformation"
+                    },
+                    "email": {
+                        "$ref": "#/components/schemas/StringOrVariableOrTransformation"
+                    },
+                    "routingOrder": {
+                        "type": "string"
+                    },
+                    "note": {
+                        "$ref": "#/components/schemas/StringOrVariableOrTransformation"
+                    },
+                    "tabs": {
+                        "$ref": "#/components/schemas/ESignTabsRecord"
+                    }
+                },
+                "required": [
+                    "userName",
+                    "email",
+                    "routingOrder",
+                    "note",
+                    "tabs"
+                ],
+                "x-ds-definition-name": "ESignSigner"
+            },
+            "ESignTabsRecord": {
+                "type": "object",
+                "properties": {
+                    "signHereTabs": {
+                        "items": {
+                            "$ref": "#/components/schemas/ESignTabs"
+                        },
+                        "type": "array"
+                    },
+                    "dateSignedTabs": {
+                        "items": {
+                            "$ref": "#/components/schemas/ESignTabs"
+                        },
+                        "type": "array"
+                    },
+                    "textTabs": {
+                        "items": {
+                            "$ref": "#/components/schemas/ESignTabs"
+                        },
+                        "type": "array"
+                    },
+                    "fullNameTabs": {
+                        "items": {
+                            "$ref": "#/components/schemas/ESignTabs"
+                        },
+                        "type": "array"
+                    },
+                    "emailAddressTabs": {
+                        "items": {
+                            "$ref": "#/components/schemas/ESignTabs"
+                        },
+                        "type": "array"
+                    },
+                    "firstNameTabs": {
+                        "items": {
+                            "$ref": "#/components/schemas/ESignTabs"
+                        },
+                        "type": "array"
+                    },
+                    "lastNameTabs": {
+                        "items": {
+                            "$ref": "#/components/schemas/ESignTabs"
+                        },
+                        "type": "array"
+                    }
+                },
+                "x-ds-definition-name": "ESignTabsRecord"
+            },
+            "ESignTabs": {
+                "type": "object",
+                "properties": {
+                    "tabId": {
+                        "type": "string"
+                    },
+                    "anchorString": {
+                        "type": "string"
+                    },
+                    "value": {
+                        "$ref": "#/components/schemas/StringOrVariableOrTransformation"
+                    },
+                    "stampType": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "tabLabel": {
+                        "type": "string"
+                    },
+                    "scaleValue": {
+                        "type": "string"
+                    },
+                    "optional": {
+                        "type": "string"
+                    },
+                    "documentId": {
+                        "type": "string"
+                    },
+                    "recipientId": {
+                        "type": "string"
+                    },
+                    "pageNumber": {
+                        "type": "string"
+                    },
+                    "xPosition": {
+                        "type": "string"
+                    },
+                    "yPosition": {
+                        "type": "string"
+                    },
+                    "templateLocked": {
+                        "type": "string"
+                    },
+                    "templateRequired": {
+                        "type": "string"
+                    },
+                    "tabType": {
+                        "type": "string"
+                    },
+                    "tooltip": {
+                        "type": "string"
+                    },
+                    "font": {
+                        "type": "string"
+                    },
+                    "bold": {
+                        "type": "string"
+                    },
+                    "italic": {
+                        "type": "string"
+                    },
+                    "underline": {
+                        "type": "string"
+                    },
+                    "fontColor": {
+                        "type": "string"
+                    },
+                    "fontSize": {
+                        "type": "string"
+                    },
+                    "localePolicy": {
+                        "$ref": "#/components/schemas/ESignLocalePolicy"
+                    },
+                    "width": {
+                        "type": "string"
+                    },
+                    "height": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "tabId"
+                ],
+                "x-ds-definition-name": "ESignTabs"
+            },
+            "ESignLocalePolicy": {
+                "type": "object",
+                "additionalProperties": {
+                    "type": "object"
+                },
+                "x-ds-definition-name": "ESignLocalePolicy"
+            },
+            "ESignDocuments": {
+                "description": "ESignDocument Object. UPDATED DESCRIPTION FOR OpenAPI2.0 USERS ONLY: This object should be any of the following object models: [#/definitions/ESignDocumentFromPreviousStep, #/definitions/ESignDocumentFromESignTemplate]",
+                "anyOf": [
+                    {
+                        "$ref": "#/components/schemas/ESignDocumentFromPreviousStep"
+                    },
+                    {
+                        "$ref": "#/components/schemas/ESignDocumentFromESignTemplate"
+                    }
+                ],
+                "x-ds-definition-name": "ESignDocuments"
+            },
+            "ESignDocumentFromPreviousStep": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "$ref": "#/components/schemas/ESignDocumentTypes.FromPreviousStep"
+                    },
+                    "documentFromPreviousStep": {
+                        "$ref": "#/components/schemas/DSWorkflowVariable"
+                    },
+                    "fileExtension": {
+                        "$ref": "#/components/schemas/DSWorkflowDocGenDocOutputFormat"
+                    },
+                    "name": {
+                        "$ref": "#/components/schemas/StringOrVariableOrTransformation"
+                    }
+                },
+                "required": [
+                    "type",
+                    "documentFromPreviousStep",
+                    "fileExtension",
+                    "name"
+                ],
+                "x-ds-definition-name": "ESignDocumentFromPreviousStep"
+            },
+            "ESignDocumentTypes.FromPreviousStep": {
+                "enum": [
+                    "FromPreviousStep"
+                ],
+                "type": "string",
+                "x-ds-definition-name": "ESignDocumentTypes.FromPreviousStep"
+            },
+            "ESignDocumentFromESignTemplate": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "$ref": "#/components/schemas/ESignDocumentTypes.FromDSTemplate"
+                    },
+                    "eSignTemplateId": {
+                        "type": "string"
+                    },
+                    "fileExtension": {
+                        "$ref": "#/components/schemas/DSWorkflowDocGenDocOutputFormat"
+                    },
+                    "name": {
+                        "$ref": "#/components/schemas/StringOrVariableOrTransformation"
+                    }
+                },
+                "required": [
+                    "type",
+                    "eSignTemplateId",
+                    "fileExtension",
+                    "name"
+                ],
+                "x-ds-definition-name": "ESignDocumentFromESignTemplate"
+            },
+            "ESignDocumentTypes.FromDSTemplate": {
+                "enum": [
+                    "FromDSTemplate"
+                ],
+                "type": "string",
+                "x-ds-definition-name": "ESignDocumentTypes.FromDSTemplate"
+            },
+            "DSTransformationStep": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "$ref": "#/components/schemas/AowUUIDString"
+                    },
+                    "type": {
+                        "$ref": "#/components/schemas/DSWorkflowStepTypes.DSTransformation"
+                    },
+                    "config": {
+                        "$ref": "#/components/schemas/RecordToNever"
+                    },
+                    "input": {
+                        "$ref": "#/components/schemas/RecordStringOrVariableOrTransformation"
+                    },
+                    "output": {
+                        "$ref": "#/components/schemas/RecordStringOrVariableOrTransformation"
+                    },
+                    "expression": {
+                        "$ref": "#/components/schemas/DSWorkflowTransformationExpression"
+                    }
+                },
+                "required": [
+                    "name",
+                    "id",
+                    "type",
+                    "config",
+                    "input",
+                    "output",
+                    "expression"
+                ],
+                "x-ds-definition-name": "DSTransformationStep"
+            },
+            "DSWorkflowStepTypes.DSTransformation": {
+                "enum": [
+                    "DS-Transformation"
+                ],
+                "type": "string",
+                "x-ds-definition-name": "DSWorkflowStepTypes.DSTransformation"
+            },
+            "DSIfElseStep": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "$ref": "#/components/schemas/AowUUIDString"
+                    },
+                    "type": {
+                        "$ref": "#/components/schemas/DSWorkflowStepTypes.DSIfElse"
+                    },
+                    "ifSteps": {
+                        "items": {
+                            "$ref": "#/components/schemas/DSWorkflowStep"
+                        },
+                        "type": "array"
+                    },
+                    "elseSteps": {
+                        "items": {
+                            "$ref": "#/components/schemas/DSWorkflowStep"
+                        },
+                        "type": "array"
+                    },
+                    "expression": {
+                        "$ref": "#/components/schemas/DSWorkflowBooleanExpression"
+                    }
+                },
+                "required": [
+                    "name",
+                    "id",
+                    "type",
+                    "ifSteps",
+                    "elseSteps",
+                    "expression"
+                ],
+                "x-ds-definition-name": "DSIfElseStep"
+            },
+            "DSWorkflowStepTypes.DSIfElse": {
+                "enum": [
+                    "DS-IfElse"
+                ],
+                "type": "string",
+                "x-ds-definition-name": "DSWorkflowStepTypes.DSIfElse"
+            },
+            "DSWorkflowBooleanExpression": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "$ref": "#/components/schemas/DSWorkflowExpressionTypes.BooleanExpression"
+                    },
+                    "logicalOperator": {
+                        "$ref": "#/components/schemas/DSWorkflowLogicalOperatorTypes"
+                    },
+                    "expressions": {
+                        "items": {
+                            "anyOf": [
+                                {
+                                    "$ref": "#/components/schemas/DSWorkflowBooleanExpression"
+                                },
+                                {
+                                    "$ref": "#/components/schemas/DSWorkflowComparisonExpression"
+                                }
+                            ]
+                        },
+                        "type": "array"
+                    }
+                },
+                "required": [
+                    "type",
+                    "logicalOperator",
+                    "expressions"
+                ],
+                "x-ds-definition-name": "DSWorkflowBooleanExpression"
+            },
+            "DSWorkflowExpressionTypes.BooleanExpression": {
+                "enum": [
+                    "BooleanExpression"
+                ],
+                "type": "string",
+                "x-ds-definition-name": "DSWorkflowExpressionTypes.BooleanExpression"
+            },
+            "DSWorkflowComparisonExpression": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "$ref": "#/components/schemas/DSWorkflowExpressionTypes.ComparisonExpression"
+                    },
+                    "comparisonOperator": {
+                        "$ref": "#/components/schemas/DSWorkflowComparisonOperatorTypes"
+                    },
+                    "leftOperand": {
+                        "anyOf": [
+                            {
+                                "type": "number"
+                            },
+                            {
+                                "type": "boolean"
+                            },
+                            {
+                                "$ref": "#/components/schemas/StringOrVariableOrTransformation"
+                            }
+                        ]
+                    },
+                    "rightOperand": {
+                        "anyOf": [
+                            {
+                                "type": "number"
+                            },
+                            {
+                                "type": "boolean"
+                            },
+                            {
+                                "$ref": "#/components/schemas/StringOrVariableOrTransformation"
+                            }
+                        ]
+                    }
+                },
+                "required": [
+                    "type",
+                    "comparisonOperator",
+                    "leftOperand",
+                    "rightOperand"
+                ],
+                "x-ds-definition-name": "DSWorkflowComparisonExpression"
+            },
+            "DSWorkflowExpressionTypes.ComparisonExpression": {
+                "enum": [
+                    "ComparisonExpression"
+                ],
+                "type": "string",
+                "x-ds-definition-name": "DSWorkflowExpressionTypes.ComparisonExpression"
+            },
+            "DSWorkflowComparisonOperatorTypes": {
+                "enum": [
+                    "Contains",
+                    "NotContains",
+                    "Equal",
+                    "NotEqual",
+                    "GreaterThan",
+                    "GreaterThanOrEqual",
+                    "LessThan",
+                    "LessThanOrEqual",
+                    "StartsWith",
+                    "NotStartsWith",
+                    "EndsWith",
+                    "NotEndsWith"
+                ],
+                "type": "string",
+                "x-ds-definition-name": "DSWorkflowComparisonOperatorTypes"
+            },
+            "DSWorkflowLogicalOperatorTypes": {
+                "enum": [
+                    "And",
+                    "Or"
+                ],
+                "type": "string",
+                "x-ds-definition-name": "DSWorkflowLogicalOperatorTypes"
+            },
+            "DSLoopStep": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "$ref": "#/components/schemas/AowUUIDString"
+                    },
+                    "type": {
+                        "$ref": "#/components/schemas/DSWorkflowStepTypes.Loop"
+                    },
+                    "loopSteps": {
+                        "items": {
+                            "$ref": "#/components/schemas/DSWorkflowStep"
+                        },
+                        "type": "array"
+                    },
+                    "expression": {
+                        "$ref": "#/components/schemas/DSWorkflowComparisonExpression"
+                    }
+                },
+                "required": [
+                    "name",
+                    "id",
+                    "type",
+                    "loopSteps",
+                    "expression"
+                ],
+                "x-ds-definition-name": "DSLoopStep"
+            },
+            "DSWorkflowStepTypes.Loop": {
+                "enum": [
+                    "DS-Loop"
+                ],
+                "type": "string",
+                "x-ds-definition-name": "DSWorkflowStepTypes.Loop"
+            },
+            "DSDoUntilStep": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "$ref": "#/components/schemas/AowUUIDString"
+                    },
+                    "type": {
+                        "$ref": "#/components/schemas/DSWorkflowStepTypes.DoUntil"
+                    },
+                    "doSteps": {
+                        "items": {
+                            "$ref": "#/components/schemas/DSWorkflowStep"
+                        },
+                        "type": "array"
+                    },
+                    "expression": {
+                        "$ref": "#/components/schemas/DSWorkflowComparisonExpression"
+                    }
+                },
+                "required": [
+                    "name",
+                    "id",
+                    "type",
+                    "doSteps",
+                    "expression"
+                ],
+                "x-ds-definition-name": "DSDoUntilStep"
+            },
+            "DSWorkflowStepTypes.DoUntil": {
+                "enum": [
+                    "DS-DoUntil"
+                ],
+                "type": "string",
+                "x-ds-definition-name": "DSWorkflowStepTypes.DoUntil"
+            },
+            "DSParallelStep": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "$ref": "#/components/schemas/AowUUIDString"
+                    },
+                    "type": {
+                        "$ref": "#/components/schemas/DSWorkflowStepTypes.Parallel"
+                    },
+                    "lanes": {
+                        "$ref": "#/components/schemas/DSWorkflowLanesRecord"
+                    },
+                    "expression": {
+                        "$ref": "#/components/schemas/DSWorkflowParallelExpression"
+                    }
+                },
+                "required": [
+                    "name",
+                    "id",
+                    "type",
+                    "lanes",
+                    "expression"
+                ],
+                "x-ds-definition-name": "DSParallelStep"
+            },
+            "DSWorkflowStepTypes.Parallel": {
+                "enum": [
+                    "DS-Parallel"
+                ],
+                "type": "string",
+                "x-ds-definition-name": "DSWorkflowStepTypes.Parallel"
+            },
+            "DSWorkflowLanesRecord": {
+                "type": "object",
+                "additionalProperties": {
+                    "$ref": "#/components/schemas/DSWorkflowLane"
+                },
+                "x-ds-definition-name": "DSWorkflowLanesRecord"
+            },
+            "DSWorkflowLane": {
+                "type": "object",
+                "properties": {
+                    "laneId": {
+                        "$ref": "#/components/schemas/AowUUIDString"
+                    },
+                    "laneSteps": {
+                        "items": {
+                            "$ref": "#/components/schemas/DSWorkflowStep"
+                        },
+                        "type": "array"
+                    }
+                },
+                "required": [
+                    "laneId",
+                    "laneSteps"
+                ],
+                "x-ds-definition-name": "DSWorkflowLane"
+            },
+            "DSWorkflowParallelExpression": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "$ref": "#/components/schemas/DSWorkflowExpressionTypes.ParallelExpression"
+                    },
+                    "parallelCompletionSettings": {
+                        "$ref": "#/components/schemas/RecordStringBoolean"
+                    }
+                },
+                "required": [
+                    "type",
+                    "parallelCompletionSettings"
+                ],
+                "x-ds-definition-name": "DSWorkflowParallelExpression"
+            },
+            "DSWorkflowExpressionTypes.ParallelExpression": {
+                "enum": [
+                    "ParallelExpression"
+                ],
+                "type": "string",
+                "x-ds-definition-name": "DSWorkflowExpressionTypes.ParallelExpression"
+            },
+            "RecordStringBoolean": {
+                "type": "object",
+                "additionalProperties": {
+                    "type": "boolean"
+                },
+                "x-ds-definition-name": "RecordStringBoolean"
+            },
+            "RecordToNever": {
+                "type": "object",
+                "additionalProperties": false,
+                "x-ds-definition-name": "RecordToNever"
+            },
+            "RecordStringOrVariableOrTransformation": {
+                "description": "A Record of strings to Strings, Variables, or Transformation Expressions",
+                "type": "object",
+                "additionalProperties": {
+                    "$ref": "#/components/schemas/StringOrVariableOrTransformation"
+                },
+                "x-ds-definition-name": "RecordStringOrVariableOrTransformation"
+            },
+            "StringOrVariableOrTransformation": {
+                "description": "Object stands for a String or a Variable or a Transformation. UPDATED DESCRIPTION FOR OpenAPI2.0 USERS ONLY: This object should be any of the following object models or types: [string, #/definitions/DSWorkflowVariable, #/definitions/DSWorkflowTransformationExpression]",
+                "anyOf": [
+                    {
+                        "type": "string"
+                    },
+                    {
+                        "$ref": "#/components/schemas/DSWorkflowVariable"
+                    },
+                    {
+                        "$ref": "#/components/schemas/DSWorkflowTransformationExpression"
+                    }
+                ],
+                "x-ds-definition-name": "StringOrVariableOrTransformation"
+            },
+            "NumberOrVariable": {
+                "description": "Object stands for a number or a Variable. UPDATED DESCRIPTION FOR OpenAPI2.0 USERS ONLY: This object should be any of the following object models or types: [number, #/definitions/DSWorkflowVariable]",
+                "anyOf": [
+                    {
+                        "type": "number"
+                    },
+                    {
+                        "$ref": "#/components/schemas/DSWorkflowVariable"
+                    }
+                ],
+                "x-ds-definition-name": "NumberOrVariable"
+            },
+            "DSWorkflowTransformationExpression": {
+                "description": "Transformation Expression object. UPDATED DESCRIPTION FOR OpenAPI2.0 USERS ONLY: This object should be any of the following object models: [#/definitions/DSWorkflowReplaceExpression, #/definitions/DSWorkflowToLowerExpression, #/definitions/DSWorkflowToUpperExpression, #/components/schemas/DSWorkflowLastIndexOfExpression, #/components/schemas/DSWorkflowIndexOfExpression, #/components/schemas/DSWorkflowSubstringExpression, #/components/schemas/DSWorkflowConcatExpression]",
+                "anyOf": [
+                    {
+                        "$ref": "#/components/schemas/DSWorkflowReplaceExpression"
+                    },
+                    {
+                        "$ref": "#/components/schemas/DSWorkflowToLowerExpression"
+                    },
+                    {
+                        "$ref": "#/components/schemas/DSWorkflowToUpperExpression"
+                    },
+                    {
+                        "$ref": "#/components/schemas/DSWorkflowLastIndexOfExpression"
+                    },
+                    {
+                        "$ref": "#/components/schemas/DSWorkflowIndexOfExpression"
+                    },
+                    {
+                        "$ref": "#/components/schemas/DSWorkflowSubstringExpression"
+                    },
+                    {
+                        "$ref": "#/components/schemas/DSWorkflowConcatExpression"
+                    }
+                ],
+                "x-ds-definition-name": "DSWorkflowTransformationExpression"
+            },
+            "DSWorkflowReplaceExpression": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "$ref": "#/components/schemas/DSWorkflowTransformationExpressionTypes.ReplaceExpression"
+                    },
+                    "text": {
+                        "$ref": "#/components/schemas/StringOrVariableOrTransformation"
+                    },
+                    "oldText": {
+                        "$ref": "#/components/schemas/StringOrVariableOrTransformation"
+                    },
+                    "newText": {
+                        "$ref": "#/components/schemas/StringOrVariableOrTransformation"
+                    }
+                },
+                "required": [
+                    "type",
+                    "text",
+                    "oldText",
+                    "newText"
+                ],
+                "x-ds-definition-name": "DSWorkflowReplaceExpression"
+            },
+            "DSWorkflowTransformationExpressionTypes.ReplaceExpression": {
+                "enum": [
+                    "ReplaceExpression"
+                ],
+                "type": "string",
+                "x-ds-definition-name": "DSWorkflowTransformationExpressionTypes.ReplaceExpression"
+            },
+            "DSWorkflowToLowerExpression": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "$ref": "#/components/schemas/DSWorkflowTransformationExpressionTypes.ToLowerExpression"
+                    },
+                    "text": {
+                        "$ref": "#/components/schemas/StringOrVariableOrTransformation"
+                    }
+                },
+                "required": [
+                    "type",
+                    "text"
+                ],
+                "x-ds-definition-name": "DSWorkflowToLowerExpression"
+            },
+            "DSWorkflowTransformationExpressionTypes.ToLowerExpression": {
+                "enum": [
+                    "ToLowerExpression"
+                ],
+                "type": "string",
+                "x-ds-definition-name": "DSWorkflowTransformationExpressionTypes.ToLowerExpression"
+            },
+            "DSWorkflowToUpperExpression": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "$ref": "#/components/schemas/DSWorkflowTransformationExpressionTypes.ToUpperExpression"
+                    },
+                    "text": {
+                        "$ref": "#/components/schemas/StringOrVariableOrTransformation"
+                    }
+                },
+                "required": [
+                    "type",
+                    "text"
+                ],
+                "x-ds-definition-name": "DSWorkflowToUpperExpression"
+            },
+            "DSWorkflowTransformationExpressionTypes.ToUpperExpression": {
+                "enum": [
+                    "ToUpperExpression"
+                ],
+                "type": "string",
+                "x-ds-definition-name": "DSWorkflowTransformationExpressionTypes.ToUpperExpression"
+            },
+            "DSWorkflowLastIndexOfExpression": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "$ref": "#/components/schemas/DSWorkflowTransformationExpressionTypes.LastIndexOfExpression"
+                    },
+                    "text": {
+                        "$ref": "#/components/schemas/StringOrVariableOrTransformation"
+                    },
+                    "searchText": {
+                        "$ref": "#/components/schemas/StringOrVariableOrTransformation"
+                    }
+                },
+                "required": [
+                    "type",
+                    "text",
+                    "searchText"
+                ],
+                "x-ds-definition-name": "DSWorkflowLastIndexOfExpression"
+            },
+            "DSWorkflowTransformationExpressionTypes.LastIndexOfExpression": {
+                "enum": [
+                    "LastIndexOfExpression"
+                ],
+                "type": "string",
+                "x-ds-definition-name": "DSWorkflowTransformationExpressionTypes.LastIndexOfExpression"
+            },
+            "DSWorkflowIndexOfExpression": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "$ref": "#/components/schemas/DSWorkflowTransformationExpressionTypes.IndexOfExpression"
+                    },
+                    "text": {
+                        "$ref": "#/components/schemas/StringOrVariableOrTransformation"
+                    },
+                    "searchText": {
+                        "$ref": "#/components/schemas/StringOrVariableOrTransformation"
+                    }
+                },
+                "required": [
+                    "type",
+                    "text",
+                    "searchText"
+                ],
+                "x-ds-definition-name": "DSWorkflowIndexOfExpression"
+            },
+            "DSWorkflowTransformationExpressionTypes.IndexOfExpression": {
+                "enum": [
+                    "IndexOfExpression"
+                ],
+                "type": "string",
+                "x-ds-definition-name": "DSWorkflowTransformationExpressionTypes.IndexOfExpression"
+            },
+            "DSWorkflowSubstringExpression": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "$ref": "#/components/schemas/DSWorkflowTransformationExpressionTypes.SubstringExpression"
+                    },
+                    "text": {
+                        "$ref": "#/components/schemas/StringOrVariableOrTransformation"
+                    },
+                    "startIndex": {
+                        "$ref": "#/components/schemas/NumberOrVariable"
+                    },
+                    "length": {
+                        "$ref": "#/components/schemas/NumberOrVariable"
+                    }
+                },
+                "required": [
+                    "type",
+                    "text",
+                    "startIndex"
+                ],
+                "x-ds-definition-name": "DSWorkflowSubstringExpression"
+            },
+            "DSWorkflowTransformationExpressionTypes.SubstringExpression": {
+                "enum": [
+                    "SubstringExpression"
+                ],
+                "type": "string",
+                "x-ds-definition-name": "DSWorkflowTransformationExpressionTypes.SubstringExpression"
+            },
+            "DSWorkflowConcatExpression": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "$ref": "#/components/schemas/DSWorkflowTransformationExpressionTypes.ConcatExpression"
+                    },
+                    "inputs": {
+                        "items": {
+                            "$ref": "#/components/schemas/StringOrVariableOrTransformation"
+                        },
+                        "type": "array"
+                    }
+                },
+                "required": [
+                    "type",
+                    "text",
+                    "text2"
+                ],
+                "x-ds-definition-name": "DSWorkflowConcatExpression"
+            },
+            "DSWorkflowTransformationExpressionTypes.ConcatExpression": {
+                "enum": [
+                    "ConcatExpression"
+                ],
+                "type": "string",
+                "x-ds-definition-name": "DSWorkflowTransformationExpressionTypes.ConcatExpression"
+            },
+            "NewOrUpdatedWorkflowDefinitionResponse": {
+                "type": "object",
+                "properties": {
+                    "workflowDefinitionId": {
+                        "$ref": "#/components/schemas/AowUUIDString"
+                    },
+                    "workflowDefinition": {
+                        "$ref": "#/components/schemas/WorkflowDefinition"
+                    },
+                    "isValidWorkflowDefinition": {
+                        "type": "boolean"
+                    },
+                    "validationErrors": {
+                        "items": {
+                            "$ref": "#/components/schemas/ValidationErrors"
+                        },
+                        "type": "array"
+                    }
+                },
+                "required": [
+                    "workflowDefinitionId",
+                    "workflowDefinition",
+                    "isValidWorkflowDefinition",
+                    "validationErrors"
+                ],
+                "x-ds-definition-name": "NewOrUpdatedWorkflowDefinitionResponse"
+            },
+            "WorkflowDeleteResponse": {
+                "type": "object",
+                "properties": {
+                    "workflowDefinitionId": {
+                        "$ref": "#/components/schemas/AowUUIDString"
+                    },
+                    "pollUrl": {
+                        "type": "string",
+                        "format": "uri"
+                    }
+                },
+                "required": [
+                    "workflowDefinitionId",
+                    "pollUrl"
+                ],
+                "x-ds-definition-name": "WorkflowDeleteResponse"
+            },
+            "DeployRequest": {
+                "type": "object",
+                "properties": {
+                    "deploymentStatus": {
+                        "$ref": "#/components/schemas/DeployStatus"
+                    }
+                },
+                "required": [
+                    "deploymentStatus"
+                ],
+                "x-ds-definition-name": "DeployRequest"
+            },
+            "DeployStatus": {
+                "enum": [
+                    "Publish",
+                    "UnPublish",
+                    "Disable"
+                ],
+                "type": "string",
+                "x-ds-definition-name": "DeployStatus"
+            },
+            "DeployResponse": {
+                "type": "object",
+                "properties": {
+                    "message": {
+                        "type": "string"
+                    },
+                    "pollUrl": {
+                        "type": "string",
+                        "format": "uri"
+                    },
+                    "receivedTime": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "method": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "message",
+                    "pollUrl"
+                ],
+                "x-ds-definition-name": "DeployResponse"
+            },
+            "InvalidWorkflowResponse": {
+                "type": "object",
+                "properties": {
+                    "message": {
+                        "type": "string"
+                    },
+                    "validationErrors": {
+                        "items": {
+                            "$ref": "#/components/schemas/ValidationErrors"
+                        },
+                        "type": "array"
+                    }
+                },
+                "required": [
+                    "message",
+                    "validationErrors"
+                ],
+                "x-ds-definition-name": "InvalidWorkflowResponse"
+            },
+            "ValidationErrors": {
+                "type": "object",
+                "properties": {
+                    "message": {
+                        "type": "string"
+                    },
+                    "code": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "message",
+                    "code"
+                ],
+                "x-ds-definition-name": "ValidationErrors"
+            },
+            "CancelResponse": {
+                "type": "object",
+                "properties": {
+                    "message": {
+                        "type": "string"
+                    },
+                    "code": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "message",
+                    "code"
+                ],
+                "x-ds-definition-name": "CancelResponse"
+            },
+            "GetConfigurationInstanceResponse": {
+                "type": "object",
+                "properties": {
+                    "workflowDefinitionId": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "stepId": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "savedValues": {
+                        "type": "object",
+                        "additionalProperties": true
+                    }
+                },
+                "x-ds-definition-name": "GetConfigurationInstanceResponse"
+            },
+            "GetConfigurationInstancesResponse": {
+                "type": "object",
+                "properties": {
+                    "workflowDefinitionId": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "configInstances": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "stepId": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                },
+                                "savedValues": {
+                                    "type": "object",
+                                    "additionalProperties": true
+                                }
+                            }
+                        }
+                    },
+                    "count": {
+                        "type": "number"
+                    }
+                },
+                "x-ds-definition-name": "GetConfigurationInstancesResponse"
+            },
+            "WriteConfigurationInstanceRequest": {
+                "type": "object",
+                "properties": {
+                    "savedValues": {
+                        "type": "object",
+                        "additionalProperties": true
+                    }
+                },
+                "required": [
+                    "savedValues"
+                ],
+                "x-ds-definition-name": "WriteConfigurationInstanceRequest"
+            },
+            "WriteConfigurationInstancesRequest": {
+                "type": "object",
+                "properties": {
+                    "configInstances": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "stepId": {
+                                    "type": "string"
+                                },
+                                "savedValues": {
+                                    "type": "object",
+                                    "additionalProperties": true
+                                }
+                            }
+                        }
+                    }
+                },
+                "required": [
+                    "configInstances"
+                ],
+                "x-ds-definition-name": "WriteConfigurationInstancesRequest"
+            },
+            "WorkflowMetadataStatus": {
+                "description": "Workflow Definition Metadata Status",
+                "type": "string",
+                "enum": [
+                    "ACTIVE",
+                    "INACTIVE"
+                ],
+                "x-ds-definition-name": "WorkflowMetadataStatus"
+            },
+            "ErrorCodes": {
+                "description": "Internal Error Codes",
+                "type": "string",
+                "enum": [
+                    "ERR_10001",
+                    "ERR_10002",
+                    "ERR_10003",
+                    "ERR_10004",
+                    "ERR_10005",
+                    "ERR_10006",
+                    "ERR_10007",
+                    "ERR_10008",
+                    "ERR_10009",
+                    "ERR_10101",
+                    "ERR_10201",
+                    "ERR_10202",
+                    "ERR_10301",
+                    "ERR_10302",
+                    "ERR_10801",
+                    "ERR_10802",
+                    "ERR_10999"
+                ],
+                "x-ds-definition-name": "ErrorCodes"
+            },
+            "DEF": {
+                "x-ds-category": "ABC",
+                "x-ms-summary": "",
+                "description": ""
+            },
+            "ABC": {
+                "x-ds-category": "DEF",
+                "x-ms-summary": "",
+                "description": ""
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "DEF",
+            "description": ""
+        },
+        {
+            "name": "ABC",
+            "description": ""
+        }
+    ],
+    "x-ds-categories": [
+        {
+            "name": "ABC",
+            "summary": "",
+            "description": ""
+        },
+        {
+            "name": "DEF",
+            "summary": "",
+            "description": ""
+        }
+    ]
+}

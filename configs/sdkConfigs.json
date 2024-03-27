@@ -50,10 +50,9 @@
         },
         {
             "language": "node",
-            "latestReleaseTag": "",
             "considerInGeneration": true,
-            "version": "",
-            "changelog": "",
+            "version": "2.1.0",
+            "changelog": "### Changed\n- Added support for version 1.1.0-2.1.0 of the DocuSign abc API.\n- Updated the SDK release version.\n",
             "deployToInternal": true,
             "deployToExternal": true,
             "createRelease": true,

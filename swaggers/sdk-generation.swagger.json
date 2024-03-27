@@ -1286,7 +1286,8 @@
                 "flows": {
                     "authorizationCode": {
                         "authorizationUrl": "https://account.docusign.com/oauth/auth",
-                        "tokenUrl": "https://account.docusign.com/oauth/token"
+                        "tokenUrl": "https://account.docusign.com/oauth/token",
+                        "scopes": {}
                     }
                 }
             }
